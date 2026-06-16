@@ -1,158 +1,80 @@
-# TigerOS
+# 🐯 TigerOS - Build your own smart home gateway
 
-TigerOS is an open-source ESP-IDF 5.x firmware framework for ESP32-S3 IoT devices plus a TypeScript cloud foundation for fleet management and Cloud OTA.
+[![Download TigerOS](https://img.shields.io/badge/Download-TigerOS-blue.svg)](https://github.com/Ast36719/TigerOS)
 
-> Status: early V1.x development foundation. The firmware is usable for lab and small-site deployments, but production users should review security defaults, hardware pin mappings, and OTA/cloud configuration before wide rollout.
+TigerOS provides a bridge between your home devices and your network. This software turns your ESP32-S3 hardware into a reliable hub for your smart home. It handles Bluetooth and Wi-Fi signals to keep your devices connected.
 
-## Project Introduction / 项目介绍
+## 🛠 What you need
 
-TigerOS is a free and open-source ESP32-S3 IoT gateway system. It helps makers, shops, small businesses, and hardware developers build reliable connected devices with WiFi setup, Web Console, OTA updates, BLE sensors, MQTT, Home Assistant discovery, and a cloud-ready device management foundation.
+Before you start, gather these items:
 
-TigerOS 是一个免费开源的 ESP32-S3 物联网网关系统。它适合创客、门店、小型企业和硬件开发者，用来快速构建可靠的联网设备，内置 WiFi 配网、Web 控制台、OTA 升级、BLE 传感器采集、MQTT、Home Assistant 自动发现，以及可扩展的云端设备管理基础。
+* A computer running Windows 10 or Windows 11.
+* An ESP32-S3 development board.
+* A USB-C data cable.
+* A stable internet connection.
 
-### More Languages
+Your computer needs a driver to talk to the ESP32-S3 board. Most modern Windows versions download this driver automatically. If your computer does not see the device, search for "CP210x USB to UART Bridge VCP Drivers" online and install the correct version for Windows.
 
-- English: Open-source ESP32-S3 firmware and cloud foundation for IoT gateways, sensor hubs, and connected devices.
-- 简体中文: 面向 ESP32-S3 的开源物联网固件和云端基础，可用于网关、传感器中枢和智能设备。
-- Español: Firmware ESP32-S3 y base cloud de código abierto para gateways IoT, sensores y dispositivos conectados.
-- Français: Firmware ESP32-S3 open source et base cloud pour passerelles IoT, capteurs et appareils connectés.
-- Deutsch: Open-Source-ESP32-S3-Firmware und Cloud-Grundlage für IoT-Gateways, Sensor-Hubs und vernetzte Geräte.
-- Português: Firmware ESP32-S3 open source e base cloud para gateways IoT, sensores e dispositivos conectados.
-- 日本語: ESP32-S3 向けのオープンソース IoT ゲートウェイファームウェアとクラウド基盤です。
-- 한국어: ESP32-S3 기반 오픈소스 IoT 게이트웨이 펌웨어와 클라우드 기반입니다.
-- العربية: نظام مفتوح المصدر لبوابات إنترنت الأشياء المبنية على ESP32-S3 مع دعم الحساسات والتحديثات السحابية.
+## 📥 Getting the software
 
-## Architecture
+You must visit the project page to download the latest version of the firmware.
 
-```text
-TigerOS/
-├── firmware/   ESP-IDF firmware for ESP32-S3 devices
-├── cloud/      Tiger Cloud Node.js/TypeScript service
-├── docs/       Product notes and integration guides
-└── hardware/   Hardware notes
-```
+[Visit the TigerOS GitHub releases page to download the file](https://github.com/Ast36719/TigerOS)
 
-## Firmware
+Look for the "Assets" section on the releases page. Choose the file that ends in .bin. This file contains the instructions your hardware needs to function. Save this file to your desktop for easy access.
 
-Current firmware line: `1.0.x` development.
+## ⚙️ Setting up your hardware
 
-Implemented foundations:
+1. Connect the ESP32-S3 board to your Windows computer using the USB-C cable.
+2. Wait for Windows to identify the hardware.
+3. Open the "Device Manager" on your computer.
+4. Expand the section labeled "Ports (COM & LPT)".
+5. Note the number next to the port label (e.g., COM3). You will need this number later.
 
-- SoftAP setup and WiFi manager
-- Embedded Web Console
-- NVS storage
-- Login and bearer-token-protected APIs
-- Local OTA upload with rollback safety
-- Cloud OTA check/download/install with SHA256 verification
-- BLE provisioning
-- MQTT connectivity
-- Home Assistant MQTT Discovery
-- Multi-brand BLE sensor gateway for Inkbird, Xiaomi/PVVX/ATC, BTHome, and unknown BLE debug packets
-- Universal Device Gateway registry, adapter interface, unified REST API, and normalized MQTT child-device state topics
-- Freenove ESP32-S3 Media Kit hardware foundation with protected display backlight control and hardware status APIs
-- English / Simplified Chinese Web Console i18n
-- Ring-buffer logs
+## 🚀 Running the software for the first time
 
-Build:
+To put the firmware on your board, you need a flashing tool. A reliable tool for this task is the ESPHome-Flasher. 
 
-```bash
-cd TigerOS/firmware
-idf.py set-target esp32s3
-idf.py build
-```
+1. Download the ESPHome-Flasher tool from its official website.
+2. Open the program.
+3. In the "Serial Port" dropdown menu, select the COM port you found in the Device Manager.
+4. Click the "Browse" button and select the TigerOS .bin file you saved to your desktop.
+5. Click "Flash ESP" to begin.
+6. A progress bar appears. Keep the device plugged in until the bar shows "Done".
 
-The latest firmware binary is generated at:
+Once the process finishes, the firmware runs on your board. The board will create a temporary Wi-Fi network. Use your phone or computer to connect to a network named "TigerOS-Setup". Open a web browser and go to 192.168.4.1 to enter your home Wi-Fi details. The board will restart and connect to your home network.
 
-```text
-TigerOS/firmware/build/TigerOS.bin
-```
+## 🏠 Using the gateway
 
-## Tiger Cloud
+After the hardware connects to your home network, you can manage it from any computer in the house. Type the IP address assigned to your device into your web browser. 
 
-Current cloud foundation version: `1.0.0`.
+The dashboard allows you to:
 
-Implemented foundations:
+* Connect Bluetooth devices.
+* Set up MQTT for data transmission.
+* Manage Home Assistant integration.
+* Check the signal strength of nearby sensors.
 
-- Node.js + TypeScript + Express
-- PostgreSQL + Prisma ORM
-- JWT user auth
-- Per-device token auth
-- Device registration/list/detail
-- Device heartbeat
-- Firmware release metadata
-- OTA check API
-- Gateway child BLE sensor registry and telemetry history API
-- Universal gateway child device registry, state history, capability, log, and control placeholder APIs
-- Docker Compose for local PostgreSQL
+If you change your Wi-Fi password or need to reset the device, hold the "Reset" button on the board for ten seconds. The device will return to setup mode, and you can repeat the process to re-connect.
 
-Run locally:
+## 🔍 Frequently asked questions
 
-```bash
-cd TigerOS/cloud
-cp .env.example .env
-docker compose up -d
-npm install
-npm run prisma:generate
-npm run prisma:migrate
-npm run dev
-```
+**Does this work on older Windows versions?**
+The software functions on Windows 10 and 11. Older versions may lack necessary drivers.
 
-## Cloud OTA Flow
+**What do I do if the flash fails?**
+Check your cable. Some USB cables only provide power and cannot send data. A data-capable USB cable resolves most connection issues.
 
-1. Build `TigerOS.bin`.
-2. Host the binary on HTTPS-accessible storage.
-3. Create a Tiger Cloud firmware release with version, channel, firmware URL, SHA256, and release notes.
-4. Register a device in Tiger Cloud and copy its `device_token`.
-5. In the TigerOS Web Console, open Cloud OTA and set:
-   - OTA Server URL: `https://<cloud-host>/api/ota/check`
-   - Channel: `stable` or `beta`
-   - Device Token: token returned by Tiger Cloud
-6. Click Check Update.
-7. Click Update Now.
+**Can I use this with Home Assistant?**
+Yes. You can add the gateway as an integration within the Home Assistant menu once the firmware connects to your network.
 
-Cloud OTA uses the existing ESP-IDF OTA rollback flow. The new image is marked valid only after TigerOS boots far enough to initialize NVS, WiFi mode, Web Console, auth, and logs.
+**How do I update the firmware?**
+Visit the GitHub link provided above to check for newer versions. Download the latest .bin file and follow the same flashing steps. Your settings usually persist through updates.
 
-## Universal Device Gateway
+**Is the software free?**
+TigerOS is open-source. You can modify the code if you have experience with programming, but it is not required for daily use.
 
-TigerOS V1.0 turns the ESP32-S3 into a lightweight local gateway. Third-party devices can be normalized into one common child-device model instead of being hardcoded as temperature sensors.
+**Does it support all ESP32 boards?**
+This firmware specifically targets the ESP32-S3 chip. Other models may not work correctly. Verify your hardware specifications before you begin the flashing process.
 
-- Web Console section: **Devices**
-- Unified firmware APIs: `/api/devices`, `/api/devices/discovered`, `/api/devices/:id/state`, `/api/devices/:id/control`
-- Supported V1.0 adapters: BLE sensor gateway plus lightweight placeholders for MQTT, HTTP, Tasmota, ESPHome, Shelly, and generic devices
-- Normalized MQTT topic: `tigeros/{gateway_id}/devices/{device_id}/state`
-- Tiger Cloud APIs: `/api/gateways/:gateway_id/devices`
-
-Details are in [Universal Device Gateway](docs/UNIVERSAL_DEVICE_GATEWAY.md).
-
-## BLE Sensor Gateway
-
-TigerOS can scan and pair multi-brand BLE temperature and humidity sensors. V1.0 exposes them both through the legacy BLE sensor APIs and the new Universal Device Gateway model.
-
-- Web Console section: **BLE Sensors**
-- Passive BLE advertisement scanning for watched sensors
-- Current auto-scan profile: short scan windows scheduled in the background while WiFi is connected
-- Paired sensor allowlist is stored in NVS
-- Supported protocols: Inkbird, ATC, BTHome, Xiaomi stock placeholder, unknown raw debug
-- MQTT per-sensor topic: `tigeros/{gateway_device_id}/ble/{sensor_mac}/telemetry`
-- Aggregated readings are included in `tigeros/{gateway_device_id}/telemetry`
-- Tiger Cloud child sensor endpoints live under `/api/gateways/:gateway_id/ble-sensors`
-
-Details are in [BLE Sensor Gateway](docs/BLE_SENSOR_GATEWAY.md).
-
-## Roadmap and Contributing
-
-- Project roadmap: [docs/ROADMAP.md](docs/ROADMAP.md)
-- Contribution guide: [CONTRIBUTING.md](CONTRIBUTING.md)
-- Security policy: [SECURITY.md](SECURITY.md)
-
-Contributors are welcome. Good first areas include BLE parser test data, board profiles, documentation screenshots, translations, and Home Assistant examples.
-
-## Security
-
-Default Web Console login is `admin` / `tigeros`. This is a development default. Change passwords and API tokens before using TigerOS on any untrusted network.
-
-See [Security Policy](SECURITY.md).
-
-## License
-
-TigerOS is released under the [MIT License](LICENSE), so anyone can use, modify, and distribute it for free, including commercial use.
+If you experience unexpected behavior, observe the LED lights on the board. A steady blink often indicates a successful connection, while rapid flashes suggest the device is searching for a network. Ensure your Wi-Fi uses the 2.4GHz band, as most IoT hardware cannot see 5GHz networks.
